@@ -6,6 +6,8 @@ import Cart from './components/Cart';
 import Login from './components/Login';
 import ProductList from './components/ProductList';
 import Context from './context/Context';
+import axios from 'axios'
+import jwt_decode from 'jwt-decode'
 
 class App extends React.Component {
   constructor(props) {
@@ -17,6 +19,42 @@ class App extends React.Component {
     }
     this.routerRef = React.createRef();
   }
+
+  componentDidMount() {
+    let user = localStorage.getItem('user');
+    user = user? JSON.parse(user) : null;
+    this.setState({user});
+  }
+
+  login = async (email, password) => {
+    const res = await axios.post(
+      'http://localhost:3001/login',
+      {email, password}
+    ).catch(res => {
+      return {status: res.status , message: res.message}
+    });
+    
+    if(res.status === 200) {
+      const {email} = jwt_decode(res.data.accessTocken);
+      const user = {
+        email,
+        tocken: res.data.accessTocken,
+        accessLevel: res.data.email === 'admin@example.com'? 0 : 1
+      }
+      this.setState({user});
+      localStorage.setItem('user', JSON.stringify(user));
+      return true;
+    }else{
+      return false;
+    }
+  }
+
+  logout = (e) => {
+    e.preventDefault();
+    this.setState({user: null});
+    localStorage.removeItem('user');
+  }
+
   render() {
     return(
       <Context.Provider value={{
@@ -31,17 +69,18 @@ class App extends React.Component {
         <Router ref={this.routerRef}>
           <div className='App'>
             <nav
-            className='navbar'
+            className='navbar container'
             role='navigation'
             aria-label='main navigation'>
               <div className='navbar-brand'>
-                <strong>E-commerce</strong>
+                <strong className='navbar-item'>E-commerce</strong>
                 <label
                 role='button'
-                className='navbar-burger'
+                className='navbar-burger burger'
                 aria-label='menu'
                 aria-expanded='false'
-                onClick={() => {
+                onClick={(e) => {
+                  e.preventDefault();
                   this.setState({showMenu: !this.state.showMenu});
                 }}>
                   <span aria-hidden='true'></span>
@@ -58,7 +97,7 @@ class App extends React.Component {
                   </Link>
                   <Link to='/cart' className='navbar-item'>
                     Cart
-                    <span className='tag is-primary'>
+                    <span className='tag is-primary' style={{marginLeft: '5px'}}>
                       {Object.keys(this.state.cart).length}
                     </span>
                   </Link>
