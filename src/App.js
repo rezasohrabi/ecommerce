@@ -20,10 +20,11 @@ class App extends React.Component {
     this.routerRef = React.createRef();
   }
 
-  componentDidMount() {
+  async componentDidMount() {
+    const products = await axios.get('http://localhost:3001/products');
     let user = localStorage.getItem('user');
     user = user? JSON.parse(user) : null;
-    this.setState({user});
+    this.setState({user, products: products.data});
   }
 
   login = async (email, password) => {
