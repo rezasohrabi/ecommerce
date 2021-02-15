@@ -9,7 +9,7 @@ const Cart = props => {
         <>
             <section className='hero is-primary is-small'>
                 <div className='hero-body'>
-                    <div className='title'>My Cart</div>
+                    <div className='title has-text-centered'>My Cart</div>
                 </div>
             </section>
             <br/>
@@ -42,7 +42,7 @@ const Cart = props => {
 
                     </div>
                 ) : (
-                    <div className='column'>
+                    <div className='column has-text-centered'>
                         <span className='title has-text-grey-light'>
                             No Item In Cart!
                         </span>

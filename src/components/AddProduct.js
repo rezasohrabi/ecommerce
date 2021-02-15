@@ -65,7 +65,7 @@ class AddProduct extends React.Component {
             <>
             <section className='hero is-primary is-small'>
                 <div className='hero-body'>
-                    <p className='title'>Add Product</p>
+                    <p className='title has-text-centered'>Add Product</p>
                 </div>
             </section>
             <br/>

@@ -40,7 +40,7 @@ class Login extends React.Component {
         <>
             <section className='hero is-primary is-small'>
                 <div className='hero-body'>
-                    <p className='title'>
+                    <p className='title has-text-centered'>
                         Login
                     </p>
                 </div>

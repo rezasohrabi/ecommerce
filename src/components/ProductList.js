@@ -7,7 +7,7 @@ const ProductList = props => {
         <>
             <section className='hero is-primary is-small'>
                 <div className='hero-body'>
-                    <p className='title'>Products</p>
+                    <p className='title has-text-centered'>Products</p>
                 </div>
             </section>
             <br/>
@@ -22,7 +22,7 @@ const ProductList = props => {
                             />
                         ))
                     ) : (
-                        <div className='column'>
+                        <div className='column has-text-centered'>
                             <span className='title has-text-grey-light'>
                                 No Products Found!
                             </span>
