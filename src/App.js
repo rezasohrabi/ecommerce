@@ -56,6 +56,12 @@ class App extends React.Component {
     localStorage.removeItem('user');
   }
 
+  addProduct = (product, callback) => {
+    const products = this.state.products.slice();
+    products.push(product);
+    this.setState({products}, () => {callback && callback()})
+  }
+
   render() {
     return(
       <Context.Provider value={{
