@@ -1,4 +1,3 @@
-import './App.css';
 import React from 'react'
 import {BrowserRouter as Router, Switch, Route, Link} from 'react-router-dom'
 import AddProduct from './components/AddProduct';
@@ -23,8 +22,10 @@ class App extends React.Component {
   async componentDidMount() {
     const products = await axios.get('http://localhost:3001/products');
     let user = localStorage.getItem('user');
+    let cart = localStorage.getItem('cart');
     user = user? JSON.parse(user) : null;
-    this.setState({user, products: products.data});
+    cart = cart? JSON.parse(cart) : {};
+    this.setState({user, products: products.data, cart});
   }
 
   login = async (email, password) => {
@@ -62,6 +63,53 @@ class App extends React.Component {
     this.setState({products}, () => {callback && callback()})
   }
 
+  addToCart = cartItem => {
+    const cart = this.state.cart;
+    if(cart[cartItem.id]) {
+      cart[cartItem.id].amount += cartItem.amount;
+    } else {
+      cart[cartItem.id] = cartItem;
+    }
+    if(cart[cartItem.id].amount > cart[cartItem.id].product.stock){
+      cart[cartItem.id].amount = cart[cartItem.id].product.stock; 
+    }
+    localStorage.setItem('cart', JSON.stringify(cart));
+    this.setState({cart});
+  }
+
+  removeFromCart = cartItemId => {
+    const cart = this.state.cart;
+    delete cart[cartItemId];
+    localStorage.setItem('cart', JSON.stringify(cart));
+    this.setState({cart});
+  }
+
+  clearCart = () => {
+    const cart = {};
+    localStorage.removeItem('cart');
+    this.setState({cart});
+  }
+
+  checkout = () => {
+    if(!this.state.user) {
+      return this.routerRef.current.history.push('./login');
+    }
+
+    const cart = this.state.cart;
+    const products = this.state.products.map((p) => {
+      if(cart[p.name]) {
+        p.stock = p.stock - cart[p.name].amount;
+        axios.put(
+          `http://localhost:3001/products/${p.id}`,
+          {...p}
+        )
+      }
+      return p;
+    });
+    this.setState({products});
+    this.clearCart();
+  }
+
   render() {
     return(
       <Context.Provider value={{
@@ -69,6 +117,7 @@ class App extends React.Component {
         removeFromCart: this.removeFromCart,
         addToCart: this.addToCart,
         clearCart: this.clearCart,
+        checkout: this.checkout,
         addProduct: this.addProduct,
         login: this.login,
         logout: this.logout,
