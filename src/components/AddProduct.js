@@ -21,7 +21,7 @@ class AddProduct extends React.Component {
 
     handleChange(e) {
         this.setState({
-            [e.target.name] : e.target.value, error: ''
+            [e.target.name] : e.target.value, flash: null
         });
     }
 
@@ -35,7 +35,7 @@ class AddProduct extends React.Component {
                 'http://localhost:3001/products',
                 {id, name, stock, price, shortDesc, description},
             )
-            this.props.context.AddProduct(
+            this.props.context.addProduct(
             {
                 name,
                 stock: stock || 0,
@@ -58,7 +58,7 @@ class AddProduct extends React.Component {
 
     render() {
         const {name, stock, price, shortDesc, description} = this.state;
-        const {user} = this.props.context.user;
+        const {user} = this.props.context;
         return !(user && user.accessLevel < 1)? (
             <Redirect to='/' />
         ) : (
@@ -68,62 +68,78 @@ class AddProduct extends React.Component {
                     <p className='title'>Add Product</p>
                 </div>
             </section>
+            <br/>
             <form onSubmit={this.save}>
                 <div className='container'>
-                    <div className='columns is-one-third'>
-                        <div className='field'>
-                            <label className='label'>Product Name</label>
-                            <input
-                            className='input'
-                            type='text'
-                            name='name'
-                            value={name}
-                            onChange={this.handleChange}
-                            required
-                            />
+                    <div className='columns is-centered'>
+                        <div className='column is-one-third'>
+                            <div className='field'>
+                                <label className='label'>Product Name</label>
+                                <input
+                                className='input'
+                                type='text'
+                                name='name'
+                                value={name}
+                                onChange={this.handleChange}
+                                required
+                                />
+                            </div>
+                            <div className='field'>
+                                <label className='label'>Price</label>
+                                <input 
+                                className='input'
+                                type='number'
+                                name='price'
+                                value={price}
+                                onChange={this.handleChange}
+                                required
+                                />
+                            </div>
+                            <div className='field'>
+                                <label className='label'>Available In Stock</label>
+                                <input 
+                                className='input'
+                                type='number'
+                                name='stock'
+                                value={stock}
+                                onChange={this.handleChange}
+                                />
+                            </div>
+                            <div className='field'>
+                                <label className='label'>Short Description</label>
+                                <input 
+                                className='input'
+                                type='text'
+                                name='shortDesc'
+                                value={shortDesc}
+                                onChange={this.handleChange} 
+                                />
+                            </div>
+                            <div className='field'>
+                                <label className='label'>Description</label>
+                                <input
+                                className='input'
+                                type='text'
+                                name='description'
+                                value={description}
+                                onChange={this.handleChange}
+                                />
+                            </div>
+                            {this.state.flash && (
+                                <div className={`notification ${this.state.flash.status}`}>
+                                    {this.state.flash.msg}
+                                </div>
+                            )}
+                            <div className='field is-clearfix'>
+                                <button 
+                                className='button is-primary is-outlined is-pulled-right'
+                                type='submit'
+                                onClick={this.save}
+                                >
+                                    Submit
+                                </button>
+                            </div>
                         </div>
-                        <div className='field'>
-                            <label className='label'>Price</label>
-                            <input 
-                            className='input'
-                            type='number'
-                            name='price'
-                            value={price}
-                            onChange={this.handleChange}
-                            required
-                            />
-                        </div>
-                        <div className='field'>
-                            <label className='label'>Available In Stock</label>
-                            <input 
-                            className='input'
-                            type='number'
-                            name='stock'
-                            value={stock}
-                            onChange={this.handleChange}
-                            />
-                        </div>
-                        <div className='field'>
-                            <label className='label'>Short Description</label>
-                            <input 
-                            className='input'
-                            type='text'
-                            name='shortDesc'
-                            value={shortDesc}
-                            onChange={this.handleChange} 
-                            />
-                        </div>
-                        <div className='field'>
-                            <label className='label'>Description</label>
-                            <input
-                            className='input'
-                            type='text'
-                            name='description'
-                            value={description}
-                            onChange={this.handleChange}
-                            />
-                        </div>
-                        {}
                     </div>
                 </div>
             </form>

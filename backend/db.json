@@ -43,6 +43,30 @@
       "price": 109.99,
       "shortDesc": "Nulla facilisi. Curabitur at lacus ac velit ornare lobortis.",
       "description": "Cras sagittis. Praesent nec nisl a purus blandit viverra. Ut leo. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Fusce a quam."
+    },
+    {
+      "id": "9472age7adukl6iolyz",
+      "name": "banana",
+      "stock": "5",
+      "price": "45.25",
+      "shortDesc": "A banana is an elongated, edible fruit – botanically a berry",
+      "description": "A banana is an elongated, edible fruit – botanically a berry – produced by several kinds of large herbaceous flowering plants in the genus Musa. In some countries, bananas used for cooking may be called \"plantains\", distinguishing them from dessert bananas"
+    },
+    {
+      "id": "b8gccyv63fqkl6jcobu",
+      "name": "coconut",
+      "stock": "2",
+      "price": "21",
+      "shortDesc": "Coconut is the fruit of the coconut palm (Cocos nucifera).",
+      "description": "Coconut is the fruit of the coconut palm (Cocos nucifera). It's used for its water, milk, oil, and tasty meat. Coconuts have been grown in tropical regions for more than 4,500 years but recently increased in popularity for their flavor, culinary uses, and potential health benefits"
+    },
+    {
+      "id": "i8ecvneid7kl6jg6b7",
+      "name": "apple",
+      "stock": "0",
+      "price": "25",
+      "shortDesc": "10 Impressive Health Benefits of Apples ",
+      "description": " Apples are incredibly good for you, and eating them is linked to a lower risk of many major diseases, including diabetes and"
     }
   ]
 }
