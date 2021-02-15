@@ -36,11 +36,11 @@ class App extends React.Component {
     });
     
     if(res.status === 200) {
-      const {email} = jwt_decode(res.data.accessTocken);
+      const {email} = jwt_decode(res.data.accessToken);
       const user = {
         email,
-        tocken: res.data.accessTocken,
-        accessLevel: res.data.email === 'admin@example.com'? 0 : 1
+        token: res.data.accessToken,
+        accessLevel: email === 'admin@example.com'? 0 : 1
       }
       this.setState({user});
       localStorage.setItem('user', JSON.stringify(user));
