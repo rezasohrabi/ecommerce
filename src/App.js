@@ -63,6 +63,23 @@ class App extends React.Component {
     this.setState({products}, () => {callback && callback()})
   }
 
+  removeProduct = async (id) => {
+    const cart = this.state.cart;
+    const res = await axios.delete(
+      `http://localhost:3001/products/${id}`
+      ).catch(res => {
+        return {status: res.status, message: res.message}
+      });
+      if (res.status === 200) {
+        const products = this.state.products.filter(p => {
+          if(p.id !== id) return p;
+          else delete cart[p.name];
+        });
+        localStorage.setItem('cart', JSON.stringify(cart));
+        this.setState({products, cart});
+      }
+  }
+
   addToCart = cartItem => {
     const cart = this.state.cart;
     if(cart[cartItem.id]) {
@@ -119,6 +136,7 @@ class App extends React.Component {
         clearCart: this.clearCart,
         checkout: this.checkout,
         addProduct: this.addProduct,
+        removeProduct: this.removeProduct,
         login: this.login,
         logout: this.logout,
       }}>

@@ -19,6 +19,7 @@ const ProductList = props => {
                             key={product.id}
                             product={product}
                             addToCart={props.context.addToCart}
+                            removeProduct={props.context.removeProduct}
                             />
                         ))
                     ) : (

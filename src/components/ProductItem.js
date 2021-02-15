@@ -21,10 +21,16 @@ const ProductItem = props => {
                     <div className='content'>
                     {product.description}
                     </div>
-                    {product.stock > 0 ? (
-                    <>
-                        <small>{product.stock + ' Available'}</small>
-                        <div className='is-clearfix'>
+                    {product.stock > 0 ? 
+                   ( <small>
+                    {product.stock + ' Available'}
+                    </small>)
+                    :(<span className='has-text-danger'>
+                    Out of Stock
+                    </span>)
+                    }
+                    <div className='is-clearfix'>
+                            {product.stock > 0 &&
                             <button
                             className='button is-outlined is-primary is-small'
                             onClick={() => 
@@ -36,11 +42,14 @@ const ProductItem = props => {
                             }>
                                 Add To Cart
                             </button>
+                            }
+                            {' '}
+                            <button 
+                            className='button is-outlined is-danger is-small'
+                            onClick={() => props.removeProduct(product.id)}
+                            >remove 
+                            </button>
                         </div>
-                    </>
-                    ) : (
-                        <span className='has-text-danger'>Out of Stock</span>
-                    )}
                 </div>
             </div>
         </div>

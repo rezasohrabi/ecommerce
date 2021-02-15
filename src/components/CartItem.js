@@ -16,17 +16,15 @@ const CartItem = props => {
                     </div>
                     <div className='media-content'>
                         <div className='content'>
-                            <p>
-                                <div>
+                            <div>
+                                <p>
                                     <strong>{cartKey}</strong>
                                     {' '}
                                     <span className='has-text-primary'>{product.price}</span>
-                                </div>                                
-                                <br/>
-                                <div>{product.description}</div>
-                                <br/>
+                                </p>                                
+                                <p>{product.description}</p>
                                 <small>{`${amount} In Cart`}</small>
-                            </p>
+                            </div>
                         </div>
                     </div>
                     <div 

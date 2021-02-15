@@ -37,6 +37,7 @@ class AddProduct extends React.Component {
             )
             this.props.context.addProduct(
             {
+                id,
                 name,
                 stock: stock || 0,
                 price,
